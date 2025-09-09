@@ -15,13 +15,13 @@ environment: export-env-docker
     cp .env.example .env
 
 
-stop:
+stop: export-env-docker
     docker compose --env-file .env.docker --env-file .env \
       -p {{PROJECT_NAME}}-{{ENV}} \
       -f docker-compose.yml \
       down
 
-start: stop export-env-docker
+start: stop
     @echo "Starting PROJECT '{{PROJECT_NAME}}' with ENVIRONMENT: {{ENV}}"
     docker compose --env-file .env.docker --env-file .env \
       -p {{PROJECT_NAME}}-{{ENV}} \
