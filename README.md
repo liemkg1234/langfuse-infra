@@ -53,3 +53,33 @@ LANGFUSE_PUBLIC_KEY=YOUR_KEY
 - Examples:
     - OpenAI LLM: `examples/openai.py`
     - Agno Agent: `examples/agno.py`
+
+## 4. Architecture
+
+The following diagram shows the Langfuse self-hosted architecture:
+
+```mermaid
+flowchart TB
+    subgraph VPC
+        A[Web Server<br>langfuse-langfuse]
+        B[Redis<br>Cache, Queue]
+        C[Async Worker<br>langfuse-worker]
+        D[(Postgres<br>OLTP - Transactional Data)]
+        E[(ClickHouse<br>OLAP - Observability Data)]
+        F[(S3 / Blob Storage<br>Raw events, multimodal attachments)]
+    end
+
+    UI[UI, API, SDKs] --> A
+    A --> B
+    B --> C
+    C --> D
+    C --> E
+    C --> F
+
+    subgraph Optional
+        LLM[LLM API/Gateway<br>Optional]
+    end
+
+    A -->|Optional| LLM
+    C -->|Optional| LLM
+```
