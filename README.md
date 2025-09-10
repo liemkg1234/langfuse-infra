@@ -1,7 +1,11 @@
 # Langfuse Infrastructure
 Observability Infrastructure for LLM/Agent:
-- Tracing
+- Tracing (user_id, session_id, environment, ....)
+- Prompt Management
 - ...
+
+![Langfuse Dashboard](images/langfuse.png)
+
 
 ## 1. 🚀 **Deployment**
 ### 1.1. Install dependency
